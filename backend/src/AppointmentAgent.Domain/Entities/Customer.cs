@@ -6,4 +6,5 @@ public class Customer
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
     public required string Phone { get; set; }
+    public ICollection<Appointment> Appointments { get; set; } = [];
 }
