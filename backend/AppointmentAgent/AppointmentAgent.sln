@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.API", "AppointmentAgent.API\AppointmentAgent.API.csproj", "{A22A80B0-0DDC-493A-9308-1C1DC21DEE6B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5E7F7B4C-366E-4454-8F4E-8DD5D73A3019}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F659F550-A1B1-470A-A7FD-0CE2DBFCF7E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.Persistence", "AppointmentAgent.Persistence\AppointmentAgent.Persistence.csproj", "{9E608375-A617-4737-B2C0-F4139B7041D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.Domain", "AppointmentAgent.Domain\AppointmentAgent.Domain.csproj", "{DA8DE825-C971-43B0-A618-5E32A5782497}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.API.UnitTests", "AppointmentAgent.API.UnitTests\AppointmentAgent.API.UnitTests.csproj", "{DD59BEB9-AD23-4475-91F0-646F911D10B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.Persistence.UnitTests", "AppointmentAgent.Persistence.UnitTests\AppointmentAgent.Persistence.UnitTests.csproj", "{D83C10BA-F6A6-46D5-BDBE-C69E46BE86F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A22A80B0-0DDC-493A-9308-1C1DC21DEE6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A22A80B0-0DDC-493A-9308-1C1DC21DEE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A22A80B0-0DDC-493A-9308-1C1DC21DEE6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A22A80B0-0DDC-493A-9308-1C1DC21DEE6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E608375-A617-4737-B2C0-F4139B7041D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E608375-A617-4737-B2C0-F4139B7041D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E608375-A617-4737-B2C0-F4139B7041D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E608375-A617-4737-B2C0-F4139B7041D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA8DE825-C971-43B0-A618-5E32A5782497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA8DE825-C971-43B0-A618-5E32A5782497}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA8DE825-C971-43B0-A618-5E32A5782497}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA8DE825-C971-43B0-A618-5E32A5782497}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD59BEB9-AD23-4475-91F0-646F911D10B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD59BEB9-AD23-4475-91F0-646F911D10B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD59BEB9-AD23-4475-91F0-646F911D10B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD59BEB9-AD23-4475-91F0-646F911D10B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D83C10BA-F6A6-46D5-BDBE-C69E46BE86F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D83C10BA-F6A6-46D5-BDBE-C69E46BE86F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D83C10BA-F6A6-46D5-BDBE-C69E46BE86F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D83C10BA-F6A6-46D5-BDBE-C69E46BE86F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A22A80B0-0DDC-493A-9308-1C1DC21DEE6B} = {5E7F7B4C-366E-4454-8F4E-8DD5D73A3019}
+		{9E608375-A617-4737-B2C0-F4139B7041D0} = {5E7F7B4C-366E-4454-8F4E-8DD5D73A3019}
+		{DA8DE825-C971-43B0-A618-5E32A5782497} = {5E7F7B4C-366E-4454-8F4E-8DD5D73A3019}
+		{DD59BEB9-AD23-4475-91F0-646F911D10B2} = {F659F550-A1B1-470A-A7FD-0CE2DBFCF7E4}
+		{D83C10BA-F6A6-46D5-BDBE-C69E46BE86F3} = {F659F550-A1B1-470A-A7FD-0CE2DBFCF7E4}
+	EndGlobalSection
+EndGlobal
