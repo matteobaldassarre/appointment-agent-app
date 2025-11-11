@@ -1,18 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.API", "AppointmentAgent.API\AppointmentAgent.API.csproj", "{A22A80B0-0DDC-493A-9308-1C1DC21DEE6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.API", "src\AppointmentAgent.API\AppointmentAgent.API.csproj", "{A22A80B0-0DDC-493A-9308-1C1DC21DEE6B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5E7F7B4C-366E-4454-8F4E-8DD5D73A3019}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.Persistence", "src\AppointmentAgent.Persistence\AppointmentAgent.Persistence.csproj", "{9E608375-A617-4737-B2C0-F4139B7041D0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F659F550-A1B1-470A-A7FD-0CE2DBFCF7E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.Domain", "src\AppointmentAgent.Domain\AppointmentAgent.Domain.csproj", "{DA8DE825-C971-43B0-A618-5E32A5782497}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.Persistence", "AppointmentAgent.Persistence\AppointmentAgent.Persistence.csproj", "{9E608375-A617-4737-B2C0-F4139B7041D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.API.UnitTests", "tests\AppointmentAgent.API.UnitTests\AppointmentAgent.API.UnitTests.csproj", "{DD59BEB9-AD23-4475-91F0-646F911D10B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.Domain", "AppointmentAgent.Domain\AppointmentAgent.Domain.csproj", "{DA8DE825-C971-43B0-A618-5E32A5782497}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.Persistence.UnitTests", "tests\AppointmentAgent.Persistence.UnitTests\AppointmentAgent.Persistence.UnitTests.csproj", "{D83C10BA-F6A6-46D5-BDBE-C69E46BE86F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.API.UnitTests", "AppointmentAgent.API.UnitTests\AppointmentAgent.API.UnitTests.csproj", "{DD59BEB9-AD23-4475-91F0-646F911D10B2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0C40D71D-ABC5-470F-B6C3-864BA2B44660}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.Persistence.UnitTests", "AppointmentAgent.Persistence.UnitTests\AppointmentAgent.Persistence.UnitTests.csproj", "{D83C10BA-F6A6-46D5-BDBE-C69E46BE86F3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D31D8EE1-1292-4B52-9983-CF7B5C51D9EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,10 +42,10 @@ Global
 		{D83C10BA-F6A6-46D5-BDBE-C69E46BE86F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{A22A80B0-0DDC-493A-9308-1C1DC21DEE6B} = {5E7F7B4C-366E-4454-8F4E-8DD5D73A3019}
-		{9E608375-A617-4737-B2C0-F4139B7041D0} = {5E7F7B4C-366E-4454-8F4E-8DD5D73A3019}
-		{DA8DE825-C971-43B0-A618-5E32A5782497} = {5E7F7B4C-366E-4454-8F4E-8DD5D73A3019}
-		{DD59BEB9-AD23-4475-91F0-646F911D10B2} = {F659F550-A1B1-470A-A7FD-0CE2DBFCF7E4}
-		{D83C10BA-F6A6-46D5-BDBE-C69E46BE86F3} = {F659F550-A1B1-470A-A7FD-0CE2DBFCF7E4}
+		{A22A80B0-0DDC-493A-9308-1C1DC21DEE6B} = {0C40D71D-ABC5-470F-B6C3-864BA2B44660}
+		{DA8DE825-C971-43B0-A618-5E32A5782497} = {0C40D71D-ABC5-470F-B6C3-864BA2B44660}
+		{9E608375-A617-4737-B2C0-F4139B7041D0} = {0C40D71D-ABC5-470F-B6C3-864BA2B44660}
+		{DD59BEB9-AD23-4475-91F0-646F911D10B2} = {D31D8EE1-1292-4B52-9983-CF7B5C51D9EE}
+		{D83C10BA-F6A6-46D5-BDBE-C69E46BE86F3} = {D31D8EE1-1292-4B52-9983-CF7B5C51D9EE}
 	EndGlobalSection
 EndGlobal
