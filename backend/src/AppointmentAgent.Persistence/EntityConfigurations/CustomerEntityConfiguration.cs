@@ -8,11 +8,8 @@ public class CustomerEntityConfiguration : IEntityTypeConfiguration<Customer>
 {
     public void Configure(EntityTypeBuilder<Customer> builder)
     {
-        builder.ToTable("customers");
-
         builder
             .HasMany(e => e.Appointments)
-            .WithOne(e => e.Customer)
-            .HasPrincipalKey(e => e.Id);
+            .WithOne(e => e.Customer);
     }
 }

@@ -8,12 +8,8 @@ public class AppointmentEntityConfiguration : IEntityTypeConfiguration<Appointme
 {
     public void Configure(EntityTypeBuilder<Appointment> builder)
     {
-        builder.ToTable("appointments");
-        
         builder
             .HasOne(e => e.Customer)
-            .WithMany(e => e.Appointments)
-            .HasForeignKey(e => e.Customer.Id)
-            .HasPrincipalKey(e => e.Id);
+            .WithMany(e => e.Appointments);
     }
 }

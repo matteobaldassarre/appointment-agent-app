@@ -6,9 +6,7 @@ namespace AppointmentAgent.Persistence;
 
 public class ApplicationDbContext : DbContext
 {
-    protected ApplicationDbContext() { }
-
-    public ApplicationDbContext(DbContextOptions options) : base(options) { }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
     public DbSet<Appointment> Appointments => Set<Appointment>();
     public DbSet<Customer> Customers { get; set; }
