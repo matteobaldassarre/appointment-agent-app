@@ -1,6 +1,7 @@
 using AppointmentAgent.Domain.Entities;
 using AppointmentAgent.Domain.Entities.Enums;
 using AppointmentAgent.Persistence.Repositories;
+using AppointmentAgent.TestUtils;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,7 @@ public class CustomerRepositoryTests : PersistenceTestsBase
     public async Task AddAsync_WhenInvoked_AddsCustomerToDatabase()
     {
         // Arrange
-        var customer = CreateTestCustomer();
+        var customer = CustomerTestFactory.CreateCustomer();
         
         // Act
         await _customerRepository.AddAsync(customer, CancellationToken);
@@ -43,7 +44,7 @@ public class CustomerRepositoryTests : PersistenceTestsBase
     public async Task GetByIdAsync_WhenCustomerExists_ReturnsCustomer()
     {
         // Arrange
-        var customer = CreateTestCustomer();
+        var customer = CustomerTestFactory.CreateCustomer();
         
         await ArrangeDbContext.Customers.AddAsync(customer, CancellationToken);
         await ArrangeDbContext.SaveChangesAsync(CancellationToken);
@@ -67,40 +68,6 @@ public class CustomerRepositoryTests : PersistenceTestsBase
         var storedCustomer = await _customerRepository.GetByIdAsync(Guid.NewGuid(), CancellationToken);
 
         // Assert
-        storedCustomer
-            .Should()
-            .BeNull();
-    }
-    
-    // Private Methods
-    private static Customer CreateTestCustomer()
-    {
-        var customer = new Customer
-        {
-            Id = Guid.NewGuid(),
-            FirstName = "Matteo",
-            LastName = "Baldassarre",
-            Phone = "3333333333"
-        };
-
-        customer.Appointments =
-        [
-            new Appointment
-            {
-                Id = Guid.NewGuid(),
-                Customer = customer,
-                Date = DateTime.UtcNow.AddDays(-1),
-                Status = AppointmentStatus.Fulfilled
-            },
-            new Appointment
-            {
-                Id = Guid.NewGuid(),
-                Customer = customer,
-                Date = DateTime.UtcNow.AddDays(1),
-                Status = AppointmentStatus.Scheduled
-            }
-        ];
-
-        return customer;
+        Assert.That(storedCustomer, Is.Null);
     }
 }

@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\AppointmentAgent.Domain\AppointmentAgent.Domain.csproj"/>
+    </ItemGroup>
+
 </Project>

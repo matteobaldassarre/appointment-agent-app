@@ -1,6 +1,7 @@
 using AppointmentAgent.Domain.Entities;
 using AppointmentAgent.Domain.Entities.Enums;
 using AppointmentAgent.Persistence.Repositories;
+using AppointmentAgent.TestUtils;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,7 @@ public class AppointmentRepositoryTests : PersistenceTestsBase
     public async Task AddAsync_WhenInvoked_AddsAppointmentToDatabase()
     {
         // Arrange
-        var appointment = CreateTestAppointment();
+        var appointment = AppointmentTestFactory.CreateAppointment();
 
         // Act
         await _appointmentRepository.AddAsync(appointment, CancellationToken);
@@ -43,7 +44,7 @@ public class AppointmentRepositoryTests : PersistenceTestsBase
     public async Task GetByIdAsync_WhenAppointmentExists_ReturnsAppointment()
     {
         // Arrange
-        var appointment = CreateTestAppointment();
+        var appointment = AppointmentTestFactory.CreateAppointment();
         
         await ArrangeDbContext.Appointments.AddAsync(appointment, CancellationToken);
         await ArrangeDbContext.SaveChangesAsync(CancellationToken);
@@ -64,11 +65,14 @@ public class AppointmentRepositoryTests : PersistenceTestsBase
     public async Task GetAllAsync_WhenInvoked_ReturnsAllAppointments()
     {
         // Arrange
-        var appointment1 = CreateTestAppointment();
-        var appointment2 = CreateTestAppointment(
-            customerFirstName: "Giulia", 
-            customerLastName: "Baldassarre", 
-            customerPhone: "9999999999"
+        var appointment1 = AppointmentTestFactory.CreateAppointment();
+        var appointment2 = AppointmentTestFactory.CreateAppointment(
+            customerConfiguration: customer =>
+            {
+                customer.FirstName = "Giulia";
+                customer.LastName = "Baldassarre";
+                customer.Phone = "9999999999";
+            }
         );
         
         await ArrangeDbContext.Appointments.AddRangeAsync([appointment1, appointment2], CancellationToken);
@@ -92,7 +96,7 @@ public class AppointmentRepositoryTests : PersistenceTestsBase
     public async Task UpdateAsync_WhenInvoked_UpdatesAppointment()
     {
         // Arrange
-        var appointment = CreateTestAppointment();
+        var appointment = AppointmentTestFactory.CreateAppointment();
         
         await ArrangeDbContext.Appointments.AddAsync(appointment, CancellationToken);
         await ArrangeDbContext.SaveChangesAsync(CancellationToken);
@@ -119,7 +123,7 @@ public class AppointmentRepositoryTests : PersistenceTestsBase
     public async Task DeleteAsync_WhenInvoked_RemovesAppointment()
     {
         // Arrange
-        var appointment = CreateTestAppointment();
+        var appointment = AppointmentTestFactory.CreateAppointment();
         
         await ArrangeDbContext.Appointments.AddAsync(appointment, CancellationToken);
         await ArrangeDbContext.SaveChangesAsync(CancellationToken);
@@ -131,36 +135,6 @@ public class AppointmentRepositoryTests : PersistenceTestsBase
         var deletedAppointment = await AssertDbContext.Appointments
             .FirstOrDefaultAsync(a => a.Id == appointment.Id, CancellationToken);
 
-        deletedAppointment
-            .Should()
-            .BeNull();
-    }
-
-    // Private Methods
-    private static Appointment CreateTestAppointment(
-        string customerFirstName = "Matteo", 
-        string customerLastName = "Baldassarre", 
-        string customerPhone = "3333333333"
-    )
-    {
-        var customer = new Customer
-        {
-            Id = Guid.NewGuid(),
-            FirstName = customerFirstName,
-            LastName = customerLastName,
-            Phone = customerPhone
-        };
-
-        var appointment = new Appointment
-        {
-            Id = Guid.NewGuid(),
-            Customer = customer,
-            Date = DateTime.UtcNow.AddDays(2),
-            Status = AppointmentStatus.Scheduled
-        };
-
-        customer.Appointments = [appointment];
-
-        return appointment;
+        Assert.That(deletedAppointment, Is.Null);
     }
 }

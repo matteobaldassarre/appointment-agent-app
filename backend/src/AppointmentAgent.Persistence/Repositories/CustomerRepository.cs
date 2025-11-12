@@ -1,4 +1,5 @@
 using AppointmentAgent.Domain.Entities;
+using AppointmentAgent.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace AppointmentAgent.Persistence.Repositories;

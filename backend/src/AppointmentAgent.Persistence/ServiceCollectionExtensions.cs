@@ -1,3 +1,4 @@
+using AppointmentAgent.Domain.Repositories;
 using AppointmentAgent.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

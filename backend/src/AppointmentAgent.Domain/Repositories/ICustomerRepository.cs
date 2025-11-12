@@ -1,6 +1,6 @@
 using AppointmentAgent.Domain.Entities;
 
-namespace AppointmentAgent.Persistence.Repositories;
+namespace AppointmentAgent.Domain.Repositories;
 
 public interface ICustomerRepository
 {
