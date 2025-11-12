@@ -20,15 +20,16 @@ public class AppointmentRepository : IAppointmentRepository
 
     public async Task<Appointment?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await _dbContext.Appointments.FirstOrDefaultAsync(
-            appointment => appointment.Id == id, 
-            cancellationToken
-        );
+        return await _dbContext.Appointments
+            .Include(appointment => appointment.Customer)
+            .FirstOrDefaultAsync(appointment => appointment.Id == id, cancellationToken);
     }
 
     public async Task<IEnumerable<Appointment>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return await _dbContext.Appointments.ToListAsync(cancellationToken);
+        return await _dbContext.Appointments
+            .Include(appointment => appointment.Customer)
+            .ToListAsync(cancellationToken);
     }
 
     public async Task UpdateAsync(Appointment appointment, CancellationToken cancellationToken)

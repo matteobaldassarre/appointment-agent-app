@@ -20,9 +20,8 @@ public class CustomerRepository : ICustomerRepository
     
     public async Task<Customer?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await _dbContext.Customers.FirstOrDefaultAsync(
-            customer => customer.Id == id, 
-            cancellationToken
-        );
+        return await _dbContext.Customers
+            .Include(customer => customer.Appointments)
+            .FirstOrDefaultAsync(customer => customer.Id == id, cancellationToken);
     }
 }
