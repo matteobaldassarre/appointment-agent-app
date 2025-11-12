@@ -1,14 +1,12 @@
 using AppointmentAgent.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-var serviceCollection = builder.Services;
-var configuration = app.Configuration;
+var configuration = builder.Configuration;
+var services = builder.Services;
 
-var connectionString = configuration.GetConnectionString("DefaultConnection") ?? "";
-
-// Register services in DI Container
-serviceCollection.AddPersistence(connectionString);
+services.AddPersistence(configuration.GetConnectionString("DefaultConnection"));
 
 app.Run();
