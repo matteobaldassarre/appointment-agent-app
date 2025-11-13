@@ -13,7 +13,11 @@ public static class ServiceCollectionExtensions
     )
     {
         // DbContext
-        services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+        services.AddDbContext<ApplicationDbContext>(
+            options => options
+                .UseNpgsql(connectionString)
+                .UseSnakeCaseNamingConvention()
+        );
         
         // Repositories
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();

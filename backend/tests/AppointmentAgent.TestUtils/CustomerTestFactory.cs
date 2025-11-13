@@ -14,24 +14,6 @@ public static class CustomerTestFactory
             LastName = "Baldassarre",
             Phone = "3333333333"
         };
-
-        customer.Appointments =
-        [
-            new Appointment
-            {
-                Id = Guid.NewGuid(),
-                Customer = customer,
-                Date = DateTime.UtcNow.AddDays(-1),
-                Status = AppointmentStatus.Fulfilled
-            },
-            new Appointment
-            {
-                Id = Guid.NewGuid(),
-                Customer = customer,
-                Date = DateTime.UtcNow.AddDays(1),
-                Status = AppointmentStatus.Scheduled
-            }
-        ];
         
         customerConfiguration?.Invoke(customer);
         

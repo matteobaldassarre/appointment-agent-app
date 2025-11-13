@@ -10,6 +10,6 @@ public class AppointmentEntityConfiguration : IEntityTypeConfiguration<Appointme
     {
         builder
             .HasOne(e => e.Customer)
-            .WithMany(e => e.Appointments);
+            .WithMany();
     }
 }

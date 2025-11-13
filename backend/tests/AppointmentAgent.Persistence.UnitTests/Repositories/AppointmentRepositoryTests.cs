@@ -67,11 +67,11 @@ public class AppointmentRepositoryTests : PersistenceTestsBase
         // Arrange
         var appointment1 = AppointmentTestFactory.CreateAppointment();
         var appointment2 = AppointmentTestFactory.CreateAppointment(
-            customerConfiguration: customer =>
+            appointmentConfiguration: appointment =>
             {
-                customer.FirstName = "Giulia";
-                customer.LastName = "Baldassarre";
-                customer.Phone = "9999999999";
+                appointment.Customer.FirstName = "Giulia";
+                appointment.Customer.LastName = "Baldassarre";
+                appointment.Customer.Phone = "9999999999";
             }
         );
         

@@ -42,13 +42,15 @@ namespace AppointmentAgent.Persistence.Migrations
                         column: x => x.customer_id,
                         principalTable: "customers",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Cascade
+                    );
                 });
 
             migrationBuilder.CreateIndex(
                 name: "ix_appointments_customer_id",
                 table: "appointments",
-                column: "customer_id");
+                column: "customer_id"
+            );
         }
 
         /// <inheritdoc />

@@ -29,7 +29,6 @@ public class CustomerRepositoryTests : PersistenceTestsBase
         
         // Assert
         var storedCustomer = await AssertDbContext.Customers
-            .Include(c => c.Appointments)
             .FirstOrDefaultAsync(x => x.Id == customer.Id, CancellationToken);
 
         storedCustomer

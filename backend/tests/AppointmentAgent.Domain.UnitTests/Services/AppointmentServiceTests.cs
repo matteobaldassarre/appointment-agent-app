@@ -58,7 +58,9 @@ public class AppointmentServiceTests
     public void TryUpdateAsync_WhenAppointmentIsNull_ThrowsException()
     {
         // Act && Assert
-        Assert.ThrowsAsync<ArgumentNullException>(() => _appointmentService.TryUpdateAsync(null!, _cancellationToken));
+        Assert.ThrowsAsync<ArgumentNullException>(
+            () => _appointmentService.TryUpdateAsync(Guid.NewGuid(), null!, _cancellationToken)
+        );
     }
 
     [Test]
@@ -72,7 +74,7 @@ public class AppointmentServiceTests
             .ReturnsAsync((Appointment?) null);
 
         // Act
-        var updateResult = await _appointmentService.TryUpdateAsync(appointment, _cancellationToken);
+        var updateResult = await _appointmentService.TryUpdateAsync(appointment.Id, appointment, _cancellationToken);
 
         // Assert
         Assert.That(updateResult, Is.False);
@@ -84,20 +86,23 @@ public class AppointmentServiceTests
     }
 
     [Test]
-    public async Task TryUpdateAsync_ShouldUpdateAndReturnTrue_WhenAppointmentExists()
+    public async Task TryUpdateAsync_WhenAppointmentExists_UpdatesAndReturnsTrue()
     {
         // Arrange
-        var customerId = Guid.NewGuid();
-        var appointmentId = Guid.NewGuid();
+        var existingAppointment = AppointmentTestFactory.CreateAppointment();
         
-        var existingAppointment = AppointmentTestFactory.CreateAppointment(customerId, appointmentId);
-        
-        var updatingAppointment = AppointmentTestFactory.CreateAppointment(customerId, appointmentId);
+        var updatingAppointment = AppointmentTestFactory.CreateAppointment(
+            appointmentConfiguration: appointment =>
+            {
+                appointment.Id = existingAppointment.Id;
+                appointment.Customer.Id = existingAppointment.Customer.Id;
+            }
+        );
         updatingAppointment.Status = AppointmentStatus.Cancelled;
         updatingAppointment.Date = DateTime.UtcNow.AddDays(1);
 
         _appointmentRepositoryMock
-            .Setup(repository => repository.GetByIdAsync(appointmentId, _cancellationToken))
+            .Setup(repository => repository.GetByIdAsync(existingAppointment.Id, _cancellationToken))
             .ReturnsAsync(existingAppointment);
         
         _appointmentRepositoryMock
@@ -105,7 +110,7 @@ public class AppointmentServiceTests
             .Returns(Task.CompletedTask);
 
         // Act
-        var updateResult = await _appointmentService.TryUpdateAsync(updatingAppointment, _cancellationToken);
+        var updateResult = await _appointmentService.TryUpdateAsync(updatingAppointment.Id, updatingAppointment, _cancellationToken);
 
         // Assert
         Assert.That(updateResult, Is.True);
@@ -177,11 +182,11 @@ public class AppointmentServiceTests
         {
             AppointmentTestFactory.CreateAppointment(),
             AppointmentTestFactory.CreateAppointment(
-                customerConfiguration: customer =>
+                appointmentConfiguration: appointment =>
                 {
-                    customer.FirstName = "Giulia";
-                    customer.LastName = "Baldassarre";
-                    customer.Phone = "9999999999";
+                    appointment.Customer.FirstName = "Giulia";
+                    appointment.Customer.LastName = "Baldassarre";
+                    appointment.Customer.Phone = "9999999999";
                 }
             )
         };

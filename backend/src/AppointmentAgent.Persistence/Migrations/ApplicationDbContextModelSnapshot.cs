@@ -8,93 +8,90 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace AppointmentAgent.Persistence.Migrations
+namespace AppointmentAgent.Persistence.Migrations;
+
+[DbContext(typeof(ApplicationDbContext))]
+partial class ApplicationDbContextModelSnapshot : ModelSnapshot
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    protected override void BuildModel(ModelBuilder modelBuilder)
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
-        {
-#pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.10")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+        #pragma warning disable 612, 618
+        modelBuilder
+            .HasAnnotation("ProductVersion", "9.0.10")
+            .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+        NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("AppointmentAgent.Domain.Entities.Appointment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+        modelBuilder.Entity("AppointmentAgent.Domain.Entities.Appointment", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uuid")
+                    .HasColumnName("id");
 
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("customer_id");
+                b.Property<Guid>("CustomerId")
+                    .HasColumnType("uuid")
+                    .HasColumnName("customer_id");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("date");
+                b.Property<DateTime>("Date")
+                    .HasColumnType("timestamp with time zone")
+                    .HasColumnName("date");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
+                b.Property<int>("Status")
+                    .HasColumnType("integer")
+                    .HasColumnName("status");
 
-                    b.HasKey("Id")
-                        .HasName("pk_appointments");
+                b.HasKey("Id")
+                    .HasName("pk_appointments");
 
-                    b.HasIndex("CustomerId")
-                        .HasDatabaseName("ix_appointments_customer_id");
+                b.HasIndex("CustomerId")
+                    .HasDatabaseName("ix_appointments_customer_id");
 
-                    b.ToTable("appointments", (string)null);
-                });
+                b.ToTable("appointments", (string)null);
+            }
+        );
 
-            modelBuilder.Entity("AppointmentAgent.Domain.Entities.Customer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+        modelBuilder.Entity("AppointmentAgent.Domain.Entities.Customer", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uuid")
+                    .HasColumnName("id");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("first_name");
+                b.Property<string>("FirstName")
+                    .IsRequired()
+                    .HasColumnType("text")
+                    .HasColumnName("first_name");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("last_name");
+                b.Property<string>("LastName")
+                    .IsRequired()
+                    .HasColumnType("text")
+                    .HasColumnName("last_name");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("phone");
+                b.Property<string>("Phone")
+                    .IsRequired()
+                    .HasColumnType("text")
+                    .HasColumnName("phone");
 
-                    b.HasKey("Id")
-                        .HasName("pk_customers");
+                b.HasKey("Id")
+                    .HasName("pk_customers");
 
-                    b.ToTable("customers", (string)null);
-                });
+                b.ToTable("customers", (string)null);
+            }
+        );
 
-            modelBuilder.Entity("AppointmentAgent.Domain.Entities.Appointment", b =>
-                {
-                    b.HasOne("AppointmentAgent.Domain.Entities.Customer", "Customer")
-                        .WithMany("Appointments")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_appointments_customers_customer_id");
+        modelBuilder.Entity("AppointmentAgent.Domain.Entities.Appointment", b =>
+            {
+                b.HasOne("AppointmentAgent.Domain.Entities.Customer", "Customer")
+                    .WithMany()
+                    .HasForeignKey("CustomerId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired()
+                    .HasConstraintName("fk_appointments_customers_customer_id");
 
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("AppointmentAgent.Domain.Entities.Customer", b =>
-                {
-                    b.Navigation("Appointments");
-                });
-#pragma warning restore 612, 618
-        }
+                b.Navigation("Customer");
+            }
+        );
+        #pragma warning restore 612, 618
     }
 }

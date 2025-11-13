@@ -22,12 +22,12 @@ public class AppointmentService : IAppointmentService
         return appointment;
     }
 
-    public async Task<bool> TryUpdateAsync(Appointment updatingAppointment, CancellationToken cancellationToken)
+    public async Task<bool> TryUpdateAsync(Guid id, Appointment updatingAppointment, CancellationToken cancellationToken)
     {
         if (updatingAppointment is null) 
             throw new ArgumentNullException(nameof(updatingAppointment));
 
-        var existingAppointment = await _appointmentRepository.GetByIdAsync(updatingAppointment.Id, cancellationToken);
+        var existingAppointment = await _appointmentRepository.GetByIdAsync(id, cancellationToken);
 
         if (existingAppointment is null)
             return false;

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AppointmentAgent.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251112075917_Initial")]
+    [Migration("20251113185422_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -84,18 +84,13 @@ namespace AppointmentAgent.Persistence.Migrations
             modelBuilder.Entity("AppointmentAgent.Domain.Entities.Appointment", b =>
                 {
                     b.HasOne("AppointmentAgent.Domain.Entities.Customer", "Customer")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_appointments_customers_customer_id");
 
                     b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("AppointmentAgent.Domain.Entities.Customer", b =>
-                {
-                    b.Navigation("Appointments");
                 });
 #pragma warning restore 612, 618
         }
