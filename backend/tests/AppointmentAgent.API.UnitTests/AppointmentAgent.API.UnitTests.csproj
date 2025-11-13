@@ -17,4 +17,9 @@
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\AppointmentAgent.API\AppointmentAgent.API.csproj"/>
+        <ProjectReference Include="..\AppointmentAgent.TestUtils\AppointmentAgent.TestUtils.csproj"/>
+    </ItemGroup>
+
 </Project>

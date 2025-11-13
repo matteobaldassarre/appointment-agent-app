@@ -10,4 +10,9 @@
         <ProjectReference Include="..\..\src\AppointmentAgent.Domain\AppointmentAgent.Domain.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FluentAssertions" Version="8.8.0" />
+      <PackageReference Include="Moq" Version="4.20.72" />
+    </ItemGroup>
+
 </Project>
