@@ -1,0 +1,19 @@
+.title {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 64rem;
+    margin-inline: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    padding: 0;
+}
