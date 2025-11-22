@@ -13,13 +13,23 @@ var services = builder.Services;
 services.AddPersistence(configuration.GetConnectionString("DefaultConnection"));
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
-services.ConfigureHttpJsonOptions(
-    options => options.SerializerOptions.Converters.Add(new JsonStringEnumConverter())
-);
+services.ConfigureHttpJsonOptions(options => options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 services.AddDomainServices();
+services.AddCors(options =>
+    options.AddPolicy("FrontendPolicy", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173") // TODO: Change when having stable FE domain
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    })
+);
 
 // Build Application
 var app = builder.Build();
+
+// Cors Policies
+app.UseCors("FrontendPolicy");
 
 // Database Setup
 var scope = app.Services.CreateScope();
