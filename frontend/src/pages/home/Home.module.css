@@ -1,0 +1,13 @@
+.home {
+    width: 100%;
+    max-width: 64rem;
+    margin-inline: auto;
+    min-height: 100dvh;
+    display: grid;
+    place-content: center;
+    gap: 1rem;
+
+    button:hover {
+        cursor: pointer;
+    }
+}
