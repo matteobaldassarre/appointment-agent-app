@@ -11,17 +11,17 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.Persistence.UnitTests", "tests\AppointmentAgent.Persistence.UnitTests\AppointmentAgent.Persistence.UnitTests.csproj", "{D83C10BA-F6A6-46D5-BDBE-C69E46BE86F3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0C40D71D-ABC5-470F-B6C3-864BA2B44660}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+		Dockerfile = Dockerfile
+		.dockerignore = .dockerignore
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D31D8EE1-1292-4B52-9983-CF7B5C51D9EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.Domain.UnitTests", "tests\AppointmentAgent.Domain.UnitTests\AppointmentAgent.Domain.UnitTests.csproj", "{5EEA9B07-A1BD-4B02-B722-3FED1A7ED432}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentAgent.TestUtils", "tests\AppointmentAgent.TestUtils\AppointmentAgent.TestUtils.csproj", "{CA36EE5F-AB82-4107-9E4A-922101279903}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D7CAD4F2-651D-43F5-9FB0-247E70FDD5C5}"
-	ProjectSection(SolutionItems) = preProject
-		compose.yaml = compose.yaml
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

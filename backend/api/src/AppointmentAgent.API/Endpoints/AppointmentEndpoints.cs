@@ -10,7 +10,7 @@ public static class AppointmentEndpoints
     public static void Map(WebApplication app)
     {
         var appointments = app
-            .MapGroup("/appointments")
+            .MapGroup("/api/v1/appointments")
             .WithTags("Appointments");
         
         // Get a list of all scheduled appointments
