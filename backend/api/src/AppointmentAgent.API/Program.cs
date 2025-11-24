@@ -19,7 +19,7 @@ services.AddCors(options =>
     options.AddPolicy("FrontendPolicy", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173") // TODO: Change when having stable FE domain
+            .WithOrigins(configuration["FRONTEND_ORIGIN_URL"])
             .AllowAnyHeader()
             .AllowAnyMethod();
     })

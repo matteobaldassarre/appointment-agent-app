@@ -45,7 +45,7 @@ initSecrets().then(() => {
     app.use(cors({ origin: process.env.FRONTEND_ORIGIN_URL }));
 
     app.get(
-        "/getToken",
+        "/api/getToken",
         async (_: Request, response: Response): Promise<void> => {
             try {
                 const token = await createToken();
