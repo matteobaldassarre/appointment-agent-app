@@ -3,6 +3,7 @@
     border-radius: 0.5rem;
     padding: 1.5rem 2rem;
     background: hsl(0 0% 100%);
+    color: black;
 }
 
 .appointmentDate {

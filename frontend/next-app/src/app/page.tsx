@@ -2,7 +2,7 @@
 
 import { ControlBar, RoomAudioRenderer, RoomContext } from "@livekit/components-react";
 import { Room } from "livekit-client";
-import "@livekit/components-styles";
+import '@livekit/components-styles';
 import React from "react";
 
 async function getLiveKitToken(): Promise<string> {

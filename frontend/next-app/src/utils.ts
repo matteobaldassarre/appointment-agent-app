@@ -10,5 +10,5 @@ export function formatDate(dateToFormat: string): string {
         hour12: true
     });
 
-    return formatted.replace(",", "@");
+    return formatted;
 }
