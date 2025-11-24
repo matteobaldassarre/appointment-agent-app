@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from livekit import rtc
 from livekit.agents import AgentServer, JobContext, AgentSession, inference, room_io, cli
 from livekit.plugins import noise_cancellation, silero
-from livekit.plugins.turn_detector.multilingual import MultilingualModel
 
 from customer_service_agent import CustomerServiceAgent
 
