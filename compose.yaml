@@ -51,13 +51,13 @@ services:
 
   frontend:
     build:
-      context: ./frontend
-    container_name: react-app
+      context: ./frontend/next-app
+    container_name: next-app
+    env_file:
+      - .env
     restart: unless-stopped
     ports:
-      - "5173:80" 
-    depends_on:
-      - api
+      - "3001:3001"
 
 volumes:
   pgdata:
