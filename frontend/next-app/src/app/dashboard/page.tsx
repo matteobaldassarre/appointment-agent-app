@@ -4,7 +4,7 @@ import type { AppointmentResponse } from "@/types";
 import styles from "./page.module.css";
 import AppointmentCard from "@/components/AppointmentCard";
 
-const Page: React.FC = () => {
+export default function Page() {
     const [appointments, setAppointments] = React.useState<AppointmentResponse[]>([]);
     const [loading, setLoading] = React.useState<boolean>(true);
     const [error, setError] = React.useState<string | null>(null);
@@ -69,5 +69,3 @@ const Page: React.FC = () => {
         </div>
     );
 };
-
-export default Page;

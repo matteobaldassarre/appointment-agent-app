@@ -7,7 +7,7 @@ export default function AgentSpeechVisualizer() {
         <BarVisualizer 
             state={state} 
             track={audioTrack} 
-            style={{height: "20rem"}} 
+            style={{height: "20rem"}}
         />
     );
 }

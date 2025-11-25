@@ -8,10 +8,3 @@
     align-items: center;
     padding: 120px 60px;
 }
-
-.link {
-    background-color: var(--foreground);
-    color: var(--background);
-    padding: 1rem 2rem;
-    border-radius: 0.5rem;
-}
