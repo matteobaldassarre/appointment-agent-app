@@ -1,4 +1,5 @@
-from datetime import datetime, timezone
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from livekit.agents import Agent, RunContext, ToolError, function_tool, utils
 import os
@@ -18,7 +19,6 @@ class CustomerServiceAgent(Agent):
     async def on_enter(self):
         await self.session.generate_reply(
             instructions = ON_ENTER_INSTRUCTIONS,
-            allow_interruptions = False
         )
 
     @function_tool(name = "book_appointment")
@@ -35,7 +35,7 @@ class CustomerServiceAgent(Agent):
         Only call this tool once you have confirmed the details with the user to avoid errors from misheard speech.
         - Ask for first name, last name, phone, and date one at a time if needed.
         - Confirm the full details verbally (e.g., "So, booking for John Doe on 2025-12-01 at 10:00 AM with phone one two three four five six seven eight nine zero?").
-        - Date should be in ISO format like '2025-12-01T10:00:00' (without Z; tool will add it).
+        - Date should be in ISO format like '2025-12-01T10:00:00'.
         - If any info seems incorrect (e.g., past date or invalid phone), prompt the user to clarify before calling.
         
         Examples:
@@ -47,13 +47,13 @@ class CustomerServiceAgent(Agent):
         Args:
             first_name: The first name of the customer (e.g., 'John'). Must not be empty.
             last_name: The last name of the customer (e.g., 'Doe'). Must not be empty.
-            date: The appointment date/time in ISO-like string (e.g., '2025-12-01T10:00:00'). Tool will validate and add 'Z' for UTC.
+            date: The appointment date/time in ISO-like string (e.g., '2025-12-01T10:00:00').
             phone: The customer's phone number (e.g., '1234567890') it should be exactly 10 digits long.
         """
 
         context.disallow_interruptions()
 
-        # Input validation and sanitization
+        # Input validation and sanitization for full name
         first_name = first_name.strip().capitalize()
         last_name = last_name.strip().capitalize()
 
@@ -65,31 +65,42 @@ class CustomerServiceAgent(Agent):
             raise ToolError("error: Invalid phone number format. Please provide a valid number.")
 
         url = f"{os.getenv('NEXT_PUBLIC_APPOINTMENTS_API_BASE_URL')}/api/v1/appointments"
+        utc_date = to_utc(date)
+
         payload = {
             "customer": {
                 "firstName": first_name,
                 "lastName": last_name,
                 "phone": phone
             },
-            "date": f"{date}Z",
+            "date": utc_date,
             "status": "Scheduled"
         }
 
-        max_retries = 2
-        for attempt in range(max_retries):
-            try:
-                session = utils.http_context.http_session()
-                timeout = aiohttp.ClientTimeout(total = 10)
+        try:
+            session = utils.http_context.http_session()
+            timeout = aiohttp.ClientTimeout(total = 10)
 
-                async with session.post(url, timeout = timeout, json = payload) as response:
-                    body = await response.text()
-                    if response.status >= 400:
-                        raise ToolError(f"error: HTTP {response.status}: {body}")
-                    return body
+            async with session.post(url, timeout = timeout, json = payload) as response:
+                body = await response.text()
+                if response.status >= 400:
+                    raise ToolError(f"error: HTTP {response.status}: {body}")
+                    
+                return body
+        except (aiohttp.ClientError, asyncio.TimeoutError) as error:
+            raise ToolError("error: Network issue - please try again later.") from error
 
-            except (aiohttp.ClientError, asyncio.TimeoutError) as error:
-                if attempt == max_retries - 1:
-                    raise ToolError("error: Network issue - please try again later.") from error
-                await asyncio.sleep(1) # Brief wait before retries
+def to_utc(
+    iso_datetime: str,
+    user_timezone: str = "Europe/Rome"
+) -> str:
+    """
+    Accepts a naive ISO-like string like '2025-12-01T11:00:00' (or '2025-12-01 11:00:00'),
+    treats it as user_timezone local time, converts to UTC and returns 'YYYY-MM-DDTHH:MM:SSZ'.
+    """
+    date = datetime.fromisoformat(iso_datetime)
+    if date.tzinfo is None:
+        date = date.replace(tzinfo = ZoneInfo(user_timezone))
 
-        raise ToolError("error: Maximum retries exceeded.")
+    datetime_utc = date.astimezone(ZoneInfo("UTC"))
+    return datetime_utc.strftime("%Y-%m-%dT%H:%M:%SZ")

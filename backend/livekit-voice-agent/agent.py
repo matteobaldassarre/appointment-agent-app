@@ -1,36 +1,21 @@
-import logging
-from pathlib import Path
 from dotenv import load_dotenv
-from livekit import rtc
-from livekit.agents import AgentServer, JobContext, AgentSession, inference, room_io, cli
-from livekit.plugins import noise_cancellation, silero
+
+from livekit import rtc, agents
+from livekit.agents import AgentServer, AgentSession, room_io, JobContext
+from livekit.plugins import openai, noise_cancellation
 
 from customer_service_agent import CustomerServiceAgent
 
-BASE = Path(__file__).parent
-logger = logging.getLogger("agent-AppointmentAgent")
 load_dotenv(".env")
 
 server = AgentServer()
 
-def prewarm(proc):
-    proc.userdata["vad"] = silero.VAD.load()
-
-server.setup_fnc = prewarm
-
 @server.rtc_session()
 async def entrypoint(context: JobContext):
     session = AgentSession(
-        stt = inference.STT(model = "assemblyai/universal-streaming", language = "en"),
-        llm = inference.LLM(model = "openai/gpt-4.1-mini"),
-        tts = inference.TTS(
-            model = "cartesia/sonic-3",
-            voice = "9626c31c-bec5-4cca-baa8-f8ba9e84c8bc",
-            language = "en-US"
-        ),
-        turn_detection = "vad",
-        vad = context.proc.userdata["vad"],
-        preemptive_generation = True
+        llm = openai.realtime.RealtimeModel(
+            voice = "marin"
+        )
     )
 
     await session.start(
@@ -46,4 +31,4 @@ async def entrypoint(context: JobContext):
     )
 
 if __name__ == "__main__":
-    cli.run_app(server)
+    agents.cli.run_app(server)
