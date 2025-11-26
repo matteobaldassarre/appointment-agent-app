@@ -19,7 +19,6 @@ export default function Page() {
     const [room] = React.useState(new Room({ dynacast: true }));
     const { microphoneTrack } = useLocalParticipant({room: room});
 
-    room.localParticipant.trackPublications
     // Connects to livekit room on page mount
     React.useEffect(() => {
         let mounted = true;
